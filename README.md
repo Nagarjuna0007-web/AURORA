@@ -5,7 +5,7 @@ answers from your own documents (RAG), searches the web with source grounding, u
 (calculator, date, time), and remembers context across a session. It ships with a command-line
 chat, a FastAPI backend and a browser UI.
 
-> Status: personal project, work in progress. Described from the source code; see **Known limitations**.
+> Status: personal project, LLM response tuning work in progress. Described from the source code; see **Known limitations**.
 
 ## Features
 - **Local LLM** through Ollama (default model `llama3`, set `MODEL_NAME` in `.env`).
