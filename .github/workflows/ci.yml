@@ -1,0 +1,21 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  quick:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install pytest
+      - run: python -m compileall -q app backend tests
+      - run: python -m pytest -q tests/test_calculator_limits.py
+  full:
+    runs-on: ubuntu-latest
+    continue-on-error: true   # flip to false once the full suite is green here
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install -r requirements-dev.txt
+      - run: python -m pytest -q

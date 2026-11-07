@@ -1,0 +1,65 @@
+Python is a high-level, general-purpose programming language. Python was created by Guido van Rossum and first released in 1991. The name comes from the British comedy group Monty Python, not from the snake. Python is maintained by a worldwide community and supported by the non-profit Python Software Foundation.
+
+Python emphasises code readability. Python uses indentation instead of braces to define blocks of code, which keeps programs visually clean. The Zen of Python, a set of guiding principles by Tim Peters, can be shown by running import this. Python style is described in the PEP 8 style guide.
+
+Python is dynamically typed and garbage collected. Python supports several programming styles, including procedural, object-oriented and functional programming. Python also supports optional type hints, introduced in Python 3.5, which let tools such as mypy check types without changing how the program runs.
+
+Python is an interpreted language. The standard and most widely used implementation of Python is CPython, which is written in C. Other implementations of Python include PyPy, which uses a just-in-time compiler for speed, Jython for the Java platform, IronPython for .NET and MicroPython for microcontrollers.
+
+Python has a large standard library, often described as batteries included. The Python standard library covers file handling, networking, regular expressions, dates and times, JSON, databases such as SQLite, testing, and command-line tools, so many tasks need no extra packages.
+
+Python packages are installed with pip, the Python package installer, from the Python Package Index called PyPI, which hosts hundreds of thousands of packages. Python projects usually use a virtual environment, created with the built-in venv module, to keep each project's dependencies separate from other projects.
+
+Python is widely used for data science and machine learning. Popular Python libraries include NumPy for numerical arrays, pandas for tabular data, Matplotlib for charts, scikit-learn for classical machine learning, and PyTorch and TensorFlow for deep learning.
+
+Python is also widely used for web development and automation. Python web frameworks include Django, Flask and FastAPI. Python is popular for scripting, system administration, testing, scientific computing, education and building AI applications.
+
+Python 3.0 was released in December 2008 and was not fully backward compatible with Python 2. Python 2 reached end of life on 1 January 2020, so new Python code should be written for Python 3, which is the actively developed version.
+
+Python has a limitation known as the global interpreter lock, or GIL, in CPython. The GIL lets only one thread execute Python bytecode at a time, so CPU-heavy Python programs often use multiprocessing or native extension libraries to use several cores. Python is generally slower than compiled languages such as C or Rust.
+
+Artificial intelligence, or AI, is the field of building computer systems that perform tasks that normally require human intelligence, such as understanding language, recognising images, making decisions and solving problems. Artificial intelligence includes machine learning, deep learning, natural language processing and robotics.
+
+Machine learning is a branch of artificial intelligence that allows computers to learn patterns from data instead of being explicitly programmed with rules. A machine learning model is trained on examples and then makes predictions on new data. Machine learning is used for recommendations, spam filtering, fraud detection and medical imaging.
+
+Machine learning is commonly divided into supervised learning, unsupervised learning and reinforcement learning. Supervised learning trains on labelled examples, for instance emails marked as spam or not spam. Unsupervised learning finds structure in unlabelled data, such as grouping similar customers. Reinforcement learning trains an agent by rewarding good actions.
+
+Overfitting is a common problem in machine learning, where a model memorises its training data and performs poorly on new data. Machine learning practitioners reduce overfitting with more data, simpler models, regularisation and by evaluating the model on a separate test set.
+
+Deep learning is a subfield of machine learning that uses neural networks with many layers. Deep learning learns useful features directly from raw data such as images, audio and text. Deep learning became dominant in the 2010s because of large datasets and powerful GPUs, and it powers modern image recognition, speech recognition and language models.
+
+A neural network is a model made of layers of connected units called neurons, loosely inspired by the brain. Each connection has a weight, and a neural network learns by adjusting its weights, usually with backpropagation and gradient descent, to reduce the error between its predictions and the correct answers.
+
+Supervised learning is a type of machine learning where each training example comes with the correct answer. Supervised learning covers classification, which predicts a category such as spam or not spam, and regression, which predicts a number such as a house price.
+
+Unsupervised learning is a type of machine learning that works on data without labels. Unsupervised learning is used for clustering, dimensionality reduction and anomaly detection, where the goal is to discover hidden structure in the data.
+
+Reinforcement learning is a type of machine learning in which an agent learns by trial and error. The agent takes actions in an environment and receives rewards or penalties, and reinforcement learning aims to maximise the total reward over time. Reinforcement learning is used in game playing, robotics and for tuning language models.
+
+Data science is an interdisciplinary field that extracts knowledge and insight from data. Data science combines statistics, programming, domain knowledge and visualisation. A typical data science workflow collects and cleans data, explores it, builds models and communicates the results. Python and SQL are the most common data science tools.
+
+Natural language processing, or NLP, is the area of artificial intelligence that deals with human language. Natural language processing tasks include translation, sentiment analysis, named entity recognition, summarisation, question answering and chatbots. Modern natural language processing is dominated by transformer-based language models.
+
+The transformer is a neural network architecture introduced in 2017 by Google researchers in the paper Attention Is All You Need. Transformers use self-attention to weigh how relevant each word in a sequence is to every other word, and they process text in parallel. Transformers are the basis of most large language models.
+
+A large language model, or LLM, is a transformer-based model trained on huge amounts of text to predict the next token in a sequence. Large language models can answer questions, summarise, translate and write code. A large language model can hallucinate, meaning it can produce fluent but false statements, which is why grounding answers in trusted sources matters.
+
+Embeddings are lists of numbers that represent the meaning of text, images or other data. Embeddings place similar items close together in a vector space, so a search for similar meaning becomes a search for nearby vectors. Text embeddings are produced by embedding models and are the foundation of semantic search and retrieval.
+
+A vector database stores embeddings and finds the nearest ones to a query vector quickly. A vector database supports similarity search at scale and is the retrieval layer of most retrieval-augmented generation systems. Examples include FAISS as a library, and dedicated databases such as Chroma, Milvus and Pinecone.
+
+FAISS is a library for efficient similarity search and clustering of dense vectors. FAISS was developed by Meta's Fundamental AI Research team. FAISS is written in C++ with Python bindings and can run on CPUs and GPUs. FAISS is used to find the nearest embeddings to a query quickly, even among millions of vectors.
+
+FAISS offers several index types. A flat index such as IndexFlatL2 compares the query with every vector and gives exact results using L2 distance. Faster approximate FAISS indexes include IVF, which searches only some clusters, HNSW, which uses a graph, and product quantization, which compresses vectors to save memory.
+
+Retrieval-augmented generation, or RAG, is a technique that lets a language model answer using documents retrieved from a knowledge base. The term was introduced in 2020 by Lewis and colleagues at Facebook AI Research. RAG reduces hallucination and lets a model use fresh or private information without retraining.
+
+A retrieval-augmented generation pipeline has clear steps. RAG first splits documents into chunks and converts each chunk into an embedding. RAG stores the embeddings in a vector index such as FAISS, retrieves the chunks closest to the user's question, and then gives those chunks to the language model as context for generating the answer.
+
+Prompt injection is an attack on applications that use large language models, in which attacker-written text overrides the developer's instructions. Direct prompt injection is typed by the user. Indirect prompt injection is hidden in content the model reads, such as a web page or document. Prompt injection is ranked first in the OWASP Top 10 for LLM applications.
+
+Defences against prompt injection are layered. Prompt injection defences include treating all retrieved content as untrusted data, limiting what the model and its tools are allowed to do, screening inputs and outputs, keeping secrets out of the prompt, and testing the system with red-team tools.
+
+FastAPI is a modern Python web framework for building APIs. FastAPI was created by Sebastián Ramírez and is built on Starlette and Pydantic. FastAPI uses Python type hints to validate requests, supports asynchronous code, and automatically generates interactive OpenAPI documentation for every endpoint it defines.
+
+Ollama is a tool for running large language models locally on your own computer. Ollama downloads open models, serves them through a local API on port 11434, and can also produce embeddings. Running a model with Ollama keeps data on your machine and works without sending prompts to an online service.

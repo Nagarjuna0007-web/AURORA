@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AURORA</title>
+<style>
+:root{color-scheme:dark;--bg:#04060d;--t:#e8eeff;--d:#8a97bd;--c1:#5eead4;--c2:#818cf8;--c3:#c084fc;--ok:#34d399;--bad:#fb7185;--glass:rgba(16,22,44,.55);--line:rgba(160,180,255,.16)}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--t);font:15px/1.6 system-ui,Segoe UI,Roboto,sans-serif;overflow:hidden}
+.sky{position:fixed;inset:0;z-index:0;overflow:hidden}
+.sky i{position:absolute;width:60vmax;height:60vmax;border-radius:50%;filter:blur(90px);opacity:.38;animation:drift 22s ease-in-out infinite alternate}
+.sky i:nth-child(1){background:var(--c1);left:-20vmax;top:-25vmax}
+.sky i:nth-child(2){background:var(--c2);right:-22vmax;top:5vmax;animation-delay:-7s}
+.sky i:nth-child(3){background:var(--c3);left:20vmax;bottom:-35vmax;animation-delay:-13s}
+.sky:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 120%,transparent 30%,var(--bg) 85%),repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px)}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+.app{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;max-width:920px;margin:auto;padding:0 16px}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 4px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.42em;font-size:15px}
+.brand b{background:linear-gradient(90deg,var(--c1),var(--c3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.orb{width:30px;height:30px;border-radius:50%;flex:none;background:conic-gradient(from 0deg,var(--c1),var(--c2),var(--c3),var(--c1));box-shadow:0 0 18px rgba(129,140,248,.7),inset 0 0 8px rgba(255,255,255,.5);animation:spin 9s linear infinite}
+.orb.big{width:92px;height:92px;box-shadow:0 0 60px rgba(129,140,248,.65),inset 0 0 22px rgba(255,255,255,.45)}
+.orb.busy{animation:spin 1.6s linear infinite,pulse 1.2s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{50%{filter:brightness(1.5) saturate(1.3)}}
+.meta{display:flex;align-items:center;gap:10px;color:var(--d);font-size:12px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--bad);box-shadow:0 0 10px var(--bad)}.dot.ok{background:var(--ok);box-shadow:0 0 10px var(--ok)}
+button{font:inherit;cursor:pointer}
+.ghost{background:var(--glass);border:1px solid var(--line);color:var(--d);border-radius:10px;padding:5px 11px;font-size:12px;backdrop-filter:blur(10px)}
+.ghost:hover{color:var(--t);border-color:var(--c2)}
+main{flex:1;overflow-y:auto;padding:8px 4px 20px;scroll-behavior:smooth}
+main::-webkit-scrollbar{width:6px}main::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.hero{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px}
+.hero h1{margin:6px 0 0;font-size:34px;letter-spacing:.06em;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0;color:var(--d)}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:10px;max-width:640px}
+.chip{background:var(--glass);border:1px solid var(--line);color:var(--t);padding:9px 15px;border-radius:999px;font-size:13px;backdrop-filter:blur(10px);transition:.2s}
+.chip:hover{border-color:var(--c1);box-shadow:0 0 18px rgba(94,234,212,.28);transform:translateY(-2px)}
+.msg{display:flex;gap:12px;margin:18px 0;animation:rise .35s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}}
+.msg.user{justify-content:flex-end}
+.bubble{max-width:82%;padding:12px 16px;border-radius:18px;background:linear-gradient(135deg,rgba(94,234,212,.2),rgba(129,140,248,.26));border:1px solid rgba(129,140,248,.35);word-wrap:break-word}
+.msg.ai .col{flex:1;min-width:0}
+.name{font-size:11px;letter-spacing:.3em;color:var(--d);margin-bottom:4px}
+.ans{padding:14px 18px;border-radius:18px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(14px);word-wrap:break-word}
+.ans:empty{display:none}
+.ans code{background:rgba(129,140,248,.18);padding:1px 6px;border-radius:6px;font:13px ui-monospace,Consolas,monospace}
+.ans pre{background:rgba(2,4,12,.7);border:1px solid var(--line);border-radius:12px;padding:12px;overflow-x:auto;margin:10px 0}
+.ans pre code{background:none;padding:0}
+.stat{display:flex;align-items:center;gap:8px;color:var(--c1);font-size:13px;margin:2px 0 8px}
+.stat span{width:6px;height:6px;border-radius:50%;background:var(--c1);animation:blink 1s infinite}
+.stat span:nth-child(2){animation-delay:.2s}.stat span:nth-child(3){animation-delay:.4s}
+@keyframes blink{50%{opacity:.15}}
+.src{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin:0 0 10px}
+.src:empty{display:none}
+.src a,.src div{display:block;padding:8px 12px;border-radius:12px;background:var(--glass);border:1px solid var(--line);color:var(--t);text-decoration:none;font-size:12px;overflow:hidden;transition:.2s}
+.src a:hover{border-color:var(--c2);box-shadow:0 0 16px rgba(129,140,248,.3)}
+.src small{display:block;color:var(--c1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.src em{font-style:normal;color:var(--d);margin-right:4px}
+.tools{margin-top:6px;display:flex;gap:8px}
+.err{color:var(--bad)}
+footer{padding:6px 0 16px}
+.bar{display:flex;align-items:flex-end;gap:10px;padding:10px 10px 10px 18px;border-radius:22px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(16px);transition:.25s}
+.bar:focus-within{border-color:var(--c2);box-shadow:0 0 0 1px var(--c2),0 0 34px rgba(129,140,248,.35)}
+textarea{flex:1;resize:none;max-height:160px;background:none;border:0;outline:0;color:var(--t);font:inherit;padding:8px 0}
+textarea::placeholder{color:var(--d)}
+.go{width:42px;height:42px;border-radius:50%;border:0;color:#04060d;font-size:18px;font-weight:700;background:linear-gradient(135deg,var(--c1),var(--c2) 60%,var(--c3));box-shadow:0 0 20px rgba(129,140,248,.5);transition:.2s}
+.go:hover{transform:scale(1.07)}
+.go.stop{background:var(--bad);box-shadow:0 0 20px rgba(251,113,133,.5)}
+.hint{text-align:center;color:var(--d);font-size:11px;margin-top:8px}
+@media (max-width:560px){.bubble{max-width:92%}.hero h1{font-size:27px}.brand{letter-spacing:.3em}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="sky"><i></i><i></i><i></i></div>
+<div class="app">
+  <header>
+    <div class="brand"><div class="orb" id="logo"></div><span>AUR<b>ORA</b></span></div>
+    <div class="meta"><span id="ver"></span><span class="dot" id="dot"></span><span id="hs">connecting</span><button class="ghost" id="clr">New chat</button></div>
+  </header>
+  <main id="log"></main>
+  <footer>
+    <div class="bar">
+      <textarea id="box" rows="1" placeholder="Ask AURORA anything..." autofocus></textarea>
+      <button class="go" id="go" title="Send">&#10148;</button>
+    </div>
+    <div class="hint">Enter to send &middot; Shift+Enter for a new line</div>
+  </footer>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+const log=$("#log"),box=$("#box"),go=$("#go");
+let ctl=null,busy=false;
+const PROMPTS=["What is Python?","What else do you know about it?","Explain retrieval-augmented generation","What is FAISS?","Calculate 2 ** 10","What is the latest stable Python version?"];
+
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function md(t){
+  return t.split("```").map((seg,i)=>{
+    if(i%2) return "<pre><code>"+esc(seg.replace(/^\w*\n/,"")).replace(/\n$/,"")+"</code></pre>";
+    return esc(seg).replace(/`([^`\n]+)`/g,"<code>$1</code>").replace(/\*\*([^*\n]+)\*\*/g,"<b>$1</b>")
+      .replace(/^\s*[-*] /gm,"&bull; ").replace(/\n/g,"<br>");
+  }).join("");
+}
+const nearBottom=()=>log.scrollHeight-log.scrollTop-log.clientHeight<140;
+const toBottom=()=>{log.scrollTop=log.scrollHeight};
+
+function hero(){
+  log.innerHTML='<div class="hero"><div class="orb big"></div><h1>Hello, I am AURORA</h1><p>Local AI with knowledge, web search and tools.</p><div class="chips" id="chips"></div></div>';
+  PROMPTS.forEach(p=>{const b=document.createElement("button");b.className="chip";b.textContent=p;b.onclick=()=>send(p);$("#chips").appendChild(b)});
+}
+function addUser(text){
+  const m=document.createElement("div");m.className="msg user";
+  m.innerHTML='<div class="bubble"></div>';m.firstChild.textContent=text;log.appendChild(m);toBottom();
+}
+function addAi(){
+  const m=document.createElement("div");m.className="msg ai";
+  m.innerHTML='<div class="orb"></div><div class="col"><div class="name">AURORA</div><div class="stat"><span></span><span></span><span></span><b>Thinking</b></div><div class="src"></div><div class="ans"></div><div class="tools"></div></div>';
+  log.appendChild(m);toBottom();
+  return {stat:m.querySelector(".stat"),statText:m.querySelector(".stat b"),src:m.querySelector(".src"),ans:m.querySelector(".ans"),tools:m.querySelector(".tools"),orb:m.querySelector(".orb")};
+}
+function showSources(ui,list){
+  ui.src.innerHTML="";
+  (list||[]).forEach((s,i)=>{
+    const url=String(s.url||""),ok=/^https?:\/\//i.test(url);
+    const a=document.createElement(ok?"a":"div");
+    if(ok){a.href=url;a.target="_blank";a.rel="noopener noreferrer"}
+    a.innerHTML="<em></em><span></span><small></small>";
+    a.children[0].textContent=s.citation_id||"["+(i+1)+"]";
+    a.children[1].textContent=s.title||url||"Source";
+    a.children[2].textContent=url.replace(/^https?:\/\/(www\.)?/i,"");
+    ui.src.appendChild(a);
+  });
+}
+function finish(ui,text,stopped){
+  busy=false;ctl=null;go.classList.remove("stop");go.innerHTML="&#10148;";
+  ui.orb.classList.remove("busy");$("#logo").classList.remove("busy");
+  if(ui.stat){ui.stat.remove();ui.stat=null}
+  if(stopped)ui.ans.insertAdjacentHTML("beforeend","<br><span class='err'>(stopped)</span>");
+  if(text){
+    const c=document.createElement("button");c.className="ghost";c.textContent="Copy";
+    c.onclick=()=>navigator.clipboard.writeText(text).then(()=>{c.textContent="Copied";setTimeout(()=>c.textContent="Copy",1200)});
+    ui.tools.appendChild(c);
+  }
+  box.focus();
+}
+async function send(text){
+  text=(text||box.value).trim();
+  if(!text||busy)return;
+  if(log.querySelector(".hero"))log.innerHTML="";
+  box.value="";box.style.height="auto";
+  addUser(text);
+  const ui=addAi();let full="";
+  busy=true;ctl=new AbortController();
+  go.classList.add("stop");go.innerHTML="&#9632;";
+  ui.orb.classList.add("busy");$("#logo").classList.add("busy");
+  try{
+    const r=await fetch("/chat/stream",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:text}),signal:ctl.signal});
+    if(!r.ok||!r.body)throw new Error("Request failed ("+r.status+")");
+    const rd=r.body.getReader(),dec=new TextDecoder();let buf="";
+    for(;;){
+      const {value,done}=await rd.read();
+      if(done)break;
+      buf+=dec.decode(value,{stream:true});
+      const lines=buf.split("\n");buf=lines.pop();
+      for(const line of lines){
+        if(!line.trim())continue;
+        let ev;try{ev=JSON.parse(line)}catch(e){continue}
+        const stick=nearBottom();
+        if(ev.type==="status"&&ui.stat)ui.statText.textContent=ev.content||"Working";
+        else if(ev.type==="sources")showSources(ui,ev.sources);
+        else if(ev.type==="error"){
+          if(ui.stat){ui.stat.remove();ui.stat=null}
+          ui.ans.innerHTML="<span class='err'>"+esc(ev.message||"Something went wrong")+"</span>";
+        }
+        else if(ev.type==="answer"){
+          if(ui.stat){ui.stat.remove();ui.stat=null}
+          full+=ev.content||"";ui.ans.innerHTML=md(full);
+        }
+        if(stick)toBottom();
+      }
+    }
+    finish(ui,full,false);
+  }catch(e){
+    if(e.name==="AbortError")finish(ui,full,true);
+    else{
+      if(ui.stat){ui.stat.remove();ui.stat=null}
+      ui.ans.innerHTML="<span class='err'>"+esc(e.message||"Something went wrong")+". Is the backend running?</span>";
+      finish(ui,full,false);
+    }
+  }
+}
+go.onclick=()=>{if(busy){if(ctl)ctl.abort()}else send()};
+box.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}});
+box.addEventListener("input",()=>{box.style.height="auto";box.style.height=Math.min(box.scrollHeight,160)+"px"});
+$("#clr").onclick=()=>{if(busy&&ctl)ctl.abort();hero()};
+
+async function health(){
+  try{
+    const ok=(await fetch("/health")).ok;
+    $("#dot").className="dot"+(ok?" ok":"");$("#hs").textContent=ok?"online":"offline";
+  }catch(e){$("#dot").className="dot";$("#hs").textContent="offline"}
+}
+(async()=>{
+  try{const s=await (await fetch("/status")).json();if(s&&s.version)$("#ver").textContent="v"+s.version}catch(e){}
+})();
+health();setInterval(health,15000);hero();
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# Optional: Hugging Face embeddings (EMBEDDING_PROVIDER=huggingface). Pulls in PyTorch (~2 GB).
+sentence-transformers>=3.0
+langchain-core>=0.3
+langchain-huggingface>=0.1

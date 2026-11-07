@@ -1,0 +1,30 @@
+# secrets and local config
+.env
+.env.*
+!.env.example
+
+# private / generated runtime data
+logs/*
+!logs/.gitkeep
+data/history.json
+data/search_debug.html
+data/*.faiss
+data/*.index
+rag_output.txt
+*.sqlite
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
