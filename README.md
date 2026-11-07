@@ -61,6 +61,10 @@ legacy/     an old copy of the engine kept for reference
 ```
 See `docs/ARCHITECTURE.md`.
 
+## Project Report
+Explore the complete technical documentation of AURORA, covering its architecture, core capabilities, implementation, and development journey.
+[View AURORA Project Report (PDF)](./AURORA_REPORT.pdf)
+
 ## Troubleshooting
 - `model '...' not found (404)`: set `MODEL_NAME` in `.env` to a model shown by `ollama list`, or pull it.
 - `Embedding model ... is not installed`: run `ollama pull nomic-embed-text`.
